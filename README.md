@@ -7,14 +7,15 @@ Anand Idris and Meredith Hu
 Creating a basic shell in C for our high school systems level programming class.
 
 ## Features
-[ ] parse arguments from the command like
-[ ] implement cd
-[ ] implement exit
-[ ] read and parse multiple commands on one line with semicolon
-[ ] simple redirection using > (stdout) and < (stdin)
-[ ] simple pipes using popen()
+ - [ ] parse arguments from the command like
+ - [ ] implement cd
+ - [ ] implement exit
+ - [ ] read and parse multiple commands on one line with semicolon
+ - [ ] simple redirection using > (stdout) and < (stdin)
+ - [ ] simple pipes using popen()
 
 ## Devlog
 
 ### 11-20-18 Meredith
-Started basic readme
+ * Started basic readme
+ * Started writing shell
