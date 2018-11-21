@@ -17,18 +17,11 @@ char ** parse_args(char * line){
 }
 
 int main(int argc, char** argv){
-  /*
-  //char line[100] = arguments;
-  //char ** args = parse_args(arguments);
-  int counter = 0;
-  while (args != NULL){
-    printf("%s\n",*args);
-    //counter++;
-    args++;
+  argv++;
+  if(execvp(*argv,argv) < 0){
+    printf("ERROR MESSAGE: You fool who gets their burgers Well Done?\n");
+    exit(1);
   }
-  */
-  //char* program = argv[0];
-  execvp(argv[0],argv);
   return 0;
 }
 
