@@ -3,7 +3,37 @@
 #include <unistd.h>
 #include <string.h>
 #include "burgers.h"
+#include <errno.h>
+#include <sys/wait.h>
+//Things to do:
 
+/* 
+1. - Read line at a time.
+- Parse line to separate command from arguments.
+- Fork and exec a command.
+- (Parent process waits until the executed program exits, and then reads next command.
+- (Implements exit & cd through chdir() )
+
+2. - Read and separate many commands on one line with ; 
+- (Ex: "ls -l; echo hello")
+
+*/
+
+//Semi-coloned parse_args
+void s_parse_arg(char * line){
+  int counter = 0;
+  for (int i = 0; i < strlen(line); i++){
+    if (line[i] == ';'){
+      counter++;
+    }
+  }
+  char * arguments[counter];
+  
+}
+  
+	
+	
+//Parses arguments.
 char ** parse_args(char * line){
   char ** steve = (char **)malloc(5*sizeof(char*));
   int counter = 0;
@@ -16,13 +46,38 @@ char ** parse_args(char * line){
   return steve;
 }
 
+//...Handles the command.  Personal preference that this be done here instead of in the main.
+int command_handle(char * command){
+  int child1 = fork();
+  if (! child1){
+    char ** argument_list = parse_args(command);
+    execvp(argument_list[0],argument_list);
+    if (execvp(*argument_list,argument_list) < 0){
+      printf("ERROR MESSAGE: Zoo Wee Mama!  Invalid command!");
+      exit(1);
+    }
+  }
+  else{
+    int status = 0;
+    wait(&status);
+    return (WEXITSTATUS(status));
+  }
+}
+  
 int main(int argc, char** argv){
-  argv++;
-  if(execvp(*argv,argv) < 0){
-    printf("ERROR MESSAGE: You fool who gets their burgers Well Done?\n");
-    exit(1);
+  clear();
+  printf("\nWelcome to the warp zone!\n.");
+
+  while(1){
+    printf("\n\n $PSI Rockin Ω:");
+    char ** steve = malloc(5*sizeof(char*));
+    scanf("%s",*steve);
+    command_handle(steve);
+    }
   }
   return 0;
 }
+
+//
 
 
