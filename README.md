@@ -23,4 +23,7 @@ Creating a basic shell in C for our high school systems level programming class.
 ### 11-21-18 Mostly Meredith
  * Did the parse_args.  Now you can enter arguments from the command line.
 
-
+### 11-25-18 Anand 
+ * Parse_args done through semi colons and it does each command per semi-colon.
+ * Implements scanf to get command line input (source: https://www.programiz.com/c-programming/c-input-output)
+ * Snazzy EarthBound name instead of humble burger restaurant.
