@@ -65,17 +65,19 @@ int command_handle(char * command){
 }
   
 int main(int argc, char** argv){
-  clear();
-  printf("\nWelcome to the warp zone!\n.");
+  //printf("\nWelcome to the warp zone!\n.");
 
   while(1){
     printf("\n\n $PSI Rockin Ω:");
-    char ** steve = malloc(5*sizeof(char*));
-    scanf("%s",*steve);
-    command_handle(steve);
+    char * steve = malloc(5*sizeof(char*));
+    //scanf("%[^\n");
+    read(STDIN_FILENO, steve, 20);
+    if(strcmp(steve, "exit") == 0){
+      return 0;
+    }else{
+      command_handle(steve);
     }
   }
-  return 0;
 }
 
 //
