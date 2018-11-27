@@ -53,7 +53,7 @@ int command_handle(char * command){
     char ** argument_list = parse_args(command);
     execvp(argument_list[0],argument_list);
     if (execvp(*argument_list,argument_list) < 0){
-      printf("ERROR MESSAGE: Zoo Wee Mama!  Invalid command!");
+      printf("ERROR MESSAGE: Zoo Wee Mama!  Invalid command!\n");
       exit(1);
     }
   }
@@ -68,10 +68,9 @@ int main(int argc, char** argv){
   //printf("\nWelcome to the warp zone!\n.");
 
   while(1){
-    printf("\n\n $PSI Rockin Ω:");
+    printf("$PSI Rockin Ω$:");
     char * steve = malloc(5*sizeof(char*));
-    //scanf("%[^\n");
-    read(STDIN_FILENO, steve, 20);
+    scanf("%s",steve);
     if(strcmp(steve, "exit") == 0){
       return 0;
     }else{
