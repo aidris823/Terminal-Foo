@@ -64,17 +64,17 @@ int command_handle(char * command){
   }
 }
   
-int main(int argc, char** argv){
+int main(){
   //printf("\nWelcome to the warp zone!\n.");
-
-  while(1){
+  int status = 1;
+  while(status){
     printf("$PSI Rockin Ω$:");
     char * steve = malloc(5*sizeof(char*));
-    scanf("%s",steve);
+    scanf("%[^\n]s",steve);
     if(strcmp(steve, "exit") == 0){
       return 0;
     }else{
-      command_handle(steve);
+      status = command_handle(steve);
     }
   }
 }
