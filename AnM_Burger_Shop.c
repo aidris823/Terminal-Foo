@@ -51,6 +51,13 @@ int command_handle(char * command){
   int child1 = fork();
   if (! child1){
     char ** argument_list = parse_args(command);
+    if(strcmp(argument_list[0],"cd") == 0){
+      if(argument_list[2]){
+	printf("Error: cd too many arguments\n");
+	exit(1);
+      }
+      chdir(argument_list[1]);
+    }
     execvp(argument_list[0],argument_list);
     if (execvp(*argument_list,argument_list) < 0){
       printf("ERROR MESSAGE: Zoo Wee Mama!  Invalid command!\n");
@@ -65,7 +72,6 @@ int command_handle(char * command){
 }
   
 int main(){
-  //printf("\nWelcome to the warp zone!\n.");
   int status = 1;
   while(status){
     printf("$PSI Rockin Ω$:");
