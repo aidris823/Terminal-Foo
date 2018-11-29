@@ -47,17 +47,11 @@ char ** parse_args(char * line){
 }
 
 //...Handles the command.  Personal preference that this be done here instead of in the main.
-int command_handle(char * command){
+
+int command_handle(char ** argument_list){
   int child1 = fork();
   if (! child1){
-    char ** argument_list = parse_args(command);
-    if(strcmp(argument_list[0],"cd") == 0){
-      if(argument_list[2]){
-	printf("Error: cd too many arguments\n");
-	exit(1);
-      }
-      chdir(argument_list[1]);
-    }
+
     execvp(argument_list[0],argument_list);
     if (execvp(*argument_list,argument_list) < 0){
       printf("ERROR MESSAGE: Zoo Wee Mama!  Invalid command!\n");
@@ -70,17 +64,38 @@ int command_handle(char * command){
     return (WEXITSTATUS(status));
   }
 }
+
   
 int main(){
-  int status = 1;
-  while(status){
-    printf("$PSI Rockin Ω$:");
+  while(1){
+    char dir[500];
+    getcwd(dir, sizeof(dir));
+    printf("$PSI Rockin Ω:%s$",dir);
     char * steve = malloc(5*sizeof(char*));
     scanf("%[^\n]s",steve);
+    char ** argument_list = parse_args(steve);
     if(strcmp(steve, "exit") == 0){
       return 0;
+    }else if(strcmp(argument_list[0],"cd") == 0){
+      if(argument_list[2]){
+	printf("Error: cd too many arguments\n");
+	exit(1);
+      }
+      chdir(argument_list[1]);
     }else{
-      status = command_handle(steve);
+      int child1 = fork();
+      if (!child1){
+	execvp(argument_list[0],argument_list);
+	if (execvp(*argument_list,argument_list) < 0){
+	  printf("ERROR MESSAGE: Zoo Wee Mama!  Invalid command!\n");
+	  exit(1);
+	}
+      }
+      else{
+	int status;
+	wait(&status);
+	return (WEXITSTATUS(status));
+      }command_handle(argument_list);
     }
   }
 }
