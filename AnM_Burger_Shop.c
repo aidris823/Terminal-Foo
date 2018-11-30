@@ -71,7 +71,8 @@ int main(){
     char dir[500];
     getcwd(dir, sizeof(dir));
     printf("$PSI Rockin Ω:%s$",dir);
-    char * steve = malloc(5*sizeof(char*));
+    //char * steve = malloc(5*sizeof(char*));
+    char steve[256];
     scanf("%[^\n]s",steve);
     char ** argument_list = parse_args(steve);
     if(strcmp(steve, "exit") == 0){
@@ -79,7 +80,6 @@ int main(){
     }else if(strcmp(argument_list[0],"cd") == 0){
       if(argument_list[2]){
 	printf("Error: cd too many arguments\n");
-	exit(1);
       }
       chdir(argument_list[1]);
     }else{
@@ -88,14 +88,14 @@ int main(){
 	execvp(argument_list[0],argument_list);
 	if (execvp(*argument_list,argument_list) < 0){
 	  printf("ERROR MESSAGE: Zoo Wee Mama!  Invalid command!\n");
-	  exit(1);
 	}
+	exit(1);
       }
       else{
 	int status;
 	wait(&status);
-	return (WEXITSTATUS(status));
-      }command_handle(argument_list);
+	//return (WEXITSTATUS(status));
+      }
     }
   }
 }
