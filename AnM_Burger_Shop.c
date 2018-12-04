@@ -19,8 +19,26 @@
 
 */
 
+//Simple redirection
+void redirect(){
+  return;
+}
+//...CLASS NOTES DONT MENTION HOW TO REDIRECT STDOUT AND STDIN!?  (I think?)
+//Keep calm and carry on.
+/*
+void pipe_redirect(){
+  int c = fork();
+  int fd[2];
+  if (c == 0){
+    dup2(fd[1],1);
+  }
+  dup2(fd[0],0);
+  execvp(parsed[2],2);
+}
+*/
+/*
 //Semi-coloned parse_args
-void s_parse_arg(char * line){
+char ** s_parse_arg(char * line){
   char ** steve = (char**)malloc(5*sizeof(char*));
   
   int counter = 0;
@@ -34,7 +52,7 @@ void s_parse_arg(char * line){
   }
   return steve;
 }
-  
+*/
 	
 	
 //Parses arguments.

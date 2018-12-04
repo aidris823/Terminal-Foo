@@ -19,16 +19,31 @@
 
 */
 
+//Simple redirection
+void redirect(){
+  return;
+}
+//...CLASS NOTES DONT MENTION HOW TO REDIRECT STDOUT AND STDIN!?  (I think?)
+//Keep calm and carry on.
+
+void pipe_redirect(char * ){
+
+
+
 //Semi-coloned parse_args
-void s_parse_arg(char * line){
+char ** s_parse_arg(char * line){
+  char ** steve = (char**)malloc(5*sizeof(char*));
+  
   int counter = 0;
   for (int i = 0; i < strlen(line); i++){
-    if (line[i] == ';'){
+    if (!strcmp(line[i],';')){
       counter++;
     }
   }
-  char * arguments[counter];
-  
+  for (int i = 0; i < counter; i++){
+    steve[i] = strsep(&line,';');
+  }
+  return steve;
 }
   
 	
