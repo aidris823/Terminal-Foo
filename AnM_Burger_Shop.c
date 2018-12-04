@@ -71,37 +71,30 @@ int main(){
   while(1){
     char dir[500];
     getcwd(dir, sizeof(dir));
-    printf("$PSI Rockin Ω:%s$",dir);
-    //char * steve = malloc(5*sizeof(char*));
+    printf("Order Up:%s$",dir);
+    char * steve = calloc(100,sizeof(char));
 
-    char steve[256];
+    //char steve[256];
     scanf(" %[^\n]s", steve);
 
     char ** argument_list = parse_args(steve);
-    if(strcmp(steve, "exit") == 0){
-      return 0;
-    }else if(strcmp(argument_list[0],"cd") == 0){
-      if(argument_list[2]){
-	printf("Error: cd too many arguments\n");
+    if(strcmp(steve, "exit") == 0){return 0;}
+    
+    if(strcmp(argument_list[0],"cd") == 0){chdir(argument_list[1]);}
+    
+    int child1 = fork();
+    if (!child1){
+      execvp(argument_list[0],argument_list);
+      if (execvp(argument_list[0],argument_list) < 0){
+	printf("ERROR MESSAGE: Zoo Wee Mama!  Invalid command!\n");
       }
-      chdir(argument_list[1]);
-    }else{
-      int child1 = fork();
-      if (!child1){
-	execvp(argument_list[0],argument_list);
-	if (execvp(*argument_list,argument_list) < 0){
-	  printf("ERROR MESSAGE: Zoo Wee Mama!  Invalid command!\n");
-	}
-	exit(1);
-      }
-      /*
-      else{
-	int status;
-	wait(&status);
-	//return (WEXITSTATUS(status));
-      }
-      */
+      exit(1);
     }
+    
+    int status;
+    wait(&status);
+    //return (WEXITSTATUS(status));
+
   }
 }
 
