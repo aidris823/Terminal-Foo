@@ -67,13 +67,16 @@ int command_handle(char ** argument_list){
 
   
 int main(){
+  
   while(1){
     char dir[500];
     getcwd(dir, sizeof(dir));
     printf("$PSI Rockin Ω:%s$",dir);
     //char * steve = malloc(5*sizeof(char*));
+
     char steve[256];
-    scanf("%[^\n]s",steve);
+    scanf(" %[^\n]s", steve);
+
     char ** argument_list = parse_args(steve);
     if(strcmp(steve, "exit") == 0){
       return 0;
@@ -91,11 +94,13 @@ int main(){
 	}
 	exit(1);
       }
+      /*
       else{
 	int status;
 	wait(&status);
 	//return (WEXITSTATUS(status));
       }
+      */
     }
   }
 }
