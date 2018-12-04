@@ -8,15 +8,8 @@
 //Things to do:
 
 /* 
-1. - Read line at a time.
-- Parse line to separate command from arguments.
-- Fork and exec a command.
-- (Parent process waits until the executed program exits, and then reads next command.
-- (Implements exit & cd through chdir() )
-
 2. - Read and separate many commands on one line with ; 
 - (Ex: "ls -l; echo hello")
-
 */
 
 //Simple redirection
@@ -56,12 +49,12 @@ char ** s_parse_arg(char * line){
 	
 	
 //Parses arguments.
-char ** parse_args(char * line){
+char ** parse_args(char * line, char * parse){
   char ** steve = (char **)malloc(5*sizeof(char*));
   int counter = 0;
   char *s;
   while(line){
-    s = strsep(&line," ");
+    s = strsep(&line,parse);
     steve[counter] = s;
     counter++;
   }
@@ -93,21 +86,40 @@ int main(){
   while(1){
     char dir[500];
     getcwd(dir, sizeof(dir));
-    printf("Order Up:%s$",dir);
+    printf("[ORDER UP]:%s$",dir);
     char * steve = calloc(100,sizeof(char));
 
     //char steve[256];
     scanf(" %[^\n]s", steve);
 
-    char ** argument_list = parse_args(steve);
+    //char ** argument_list = parse_args(steve," ");
+    /*
+    while(args_list){
+      char ** temp = parse_args(*args_list);
+      args_list[counter]=temp;
+      args_list++;
+    }
+
+    char ** steve = (char **)malloc(5*sizeof(char*));
+    int counter = 0;
+    char *s;
+    while(line){
+      s = strsep(&line,parse);
+      steve[counter] = s;
+      counter++;
+    }
+    */
+
+    
+    
+    
     if(strcmp(steve, "exit") == 0){return 0;}
     
     if(strcmp(argument_list[0],"cd") == 0){chdir(argument_list[1]);}
     
     int child1 = fork();
     if (!child1){
-      execvp(argument_list[0],argument_list);
-      if (execvp(argument_list[0],argument_list) < 0){
+      if (execvp(argument_list[0],argument_list)<0){
 	printf("ERROR MESSAGE: Zoo Wee Mama!  Invalid command!\n");
       }
       exit(1);
