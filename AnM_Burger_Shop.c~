@@ -21,18 +21,14 @@
 
 //Semi-coloned parse_args
 void s_parse_arg(char * line){
-  char ** steve = (char**)malloc(5*sizeof(char*));
-  
   int counter = 0;
   for (int i = 0; i < strlen(line); i++){
-    if (!strcmp(line[i],';')){
+    if (line[i] == ';'){
       counter++;
     }
   }
-  for (int i = 0; i < counter; i++){
-    steve[i] = strsep(&line,';');
-  }
-  return steve;
+  char * arguments[counter];
+  
 }
   
 	
