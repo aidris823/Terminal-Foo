@@ -5,12 +5,8 @@
 #include "burgers.h"
 #include <errno.h>
 #include <sys/wait.h>
-//Things to do:
 
 /* 
-2. - Read and separate many commands on one line with ; 
-- (Ex: "ls -l; echo hello")
-*/
 
 //Simple redirection
 void redirect(){
@@ -90,9 +86,10 @@ int main(){
     char * steve = calloc(100,sizeof(char));
 
     //char steve[256];
-    scanf(" %[^\n]s", steve);
+    //scanf(" %[^\n]s", steve);
+    fgets(steve, 100, stdin);
 
-    //char ** argument_list = parse_args(steve," ");
+    char ** argument_list = parse_args(steve," ");
     /*
     while(args_list){
       char ** temp = parse_args(*args_list);
@@ -110,9 +107,6 @@ int main(){
     }
     */
 
-    
-    
-    
     if(strcmp(steve, "exit") == 0){return 0;}
     
     if(strcmp(argument_list[0],"cd") == 0){chdir(argument_list[1]);}
