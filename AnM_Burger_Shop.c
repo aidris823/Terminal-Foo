@@ -76,43 +76,29 @@ int command_handle(char ** argument_list){
   }
 }
 
+void printdir(){
+  char dir[500];
+  getcwd(dir, sizeof(dir));
+  printf("[ORDER UP]:%s$",dir);
+}
   
 int main(){
   
   while(1){
-    char dir[500];
-    getcwd(dir, sizeof(dir));
-    printf("[ORDER UP]:%s$",dir);
+    printdir();
     char * steve = calloc(100,sizeof(char));
-
-    //char steve[256];
-    //scanf(" %[^\n]s", steve);
     fgets(steve, 100, stdin);
+    size_t len = strlen(steve);
+    if (len <= 1) printdir();
+    if(steve[len-1] == '\n') steve[len-1]= '\0';
 
     char ** argument_list = parse_args(steve," ");
-    /*
-    while(args_list){
-      char ** temp = parse_args(*args_list);
-      args_list[counter]=temp;
-      args_list++;
-    }
-
-    char ** steve = (char **)malloc(5*sizeof(char*));
-    int counter = 0;
-    char *s;
-    while(line){
-      s = strsep(&line,parse);
-      steve[counter] = s;
-      counter++;
-    }
-    */
 
     if(strcmp(steve, "exit") == 0){return 0;}
     
     if(strcmp(argument_list[0],"cd") == 0){chdir(argument_list[1]);}
     
-    int child1 = fork();
-    if (!child1){
+    if (!fork()){
       if (execvp(argument_list[0],argument_list)<0){
 	printf("ERROR MESSAGE: Zoo Wee Mama!  Invalid command!\n");
       }

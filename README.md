@@ -11,7 +11,7 @@ Creating a basic shell in C for our high school systems level programming class.
  - [x] parse arguments from the command line
  - [x] have a nonvalid command error message
  - [x] implement cd
- - [ ] implement exit
+ - [x] implement exit
  - [ ] be able to take more than five arguments
  - [ ] read and parse multiple commands on one line with semicolon
  - [ ] simple redirection using > (stdout) and < (stdin)
@@ -66,5 +66,10 @@ Creating a basic shell in C for our high school systems level programming class.
  * no more infinite loop!
  * can read multiple arguments, great
  * no more infinite whitespace the command prompt prints
+
+### 12-6-18 Meredith
+ * tried implementing fgets but didn't work
  
- 
+### 12-7-18 Meredith
+ * implemented fgets correctly
+ * made a new print command prompt function
