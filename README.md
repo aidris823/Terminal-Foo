@@ -65,7 +65,6 @@ Creating a basic shell in C for our high school systems level programming class.
  * the parent waits for the child to finish properly
  * no more infinite loop!
  * can read multiple arguments, great
- * no more infinite whitespace the command prompt prints
 
 ### 12-6-18 Meredith
  * tried implementing fgets but didn't work
@@ -73,3 +72,6 @@ Creating a basic shell in C for our high school systems level programming class.
 ### 12-7-18 Meredith
  * implemented fgets correctly
  * made a new print command prompt function
+ * cd does not print the error now
+ * the command prompt prints if you just hit enter
+ * put better cd error handling messages
