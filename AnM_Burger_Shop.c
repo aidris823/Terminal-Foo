@@ -25,23 +25,6 @@ void pipe_redirect(){
   execvp(parsed[2],2);
 }
 */
-/*
-//Semi-coloned parse_args
-char ** s_parse_arg(char * line){
-  char ** steve = (char**)malloc(5*sizeof(char*));
-  
-  int counter = 0;
-  for (int i = 0; i < strlen(line); i++){
-    if (!strcmp(line[i],';')){
-      counter++;
-    }
-  }
-  for (int i = 0; i < counter; i++){
-    steve[i] = strsep(&line,';');
-  }
-  return steve;
-}
-*/
 	
 	
 //Parses arguments.
@@ -65,6 +48,10 @@ int command_handle(char ** argument_list){
     }
     exit(1);
   }
+
+  //wait for child to terminate
+  int status;
+  wait(&status);
 }
 
 void printdir(){
@@ -86,9 +73,21 @@ int main(){
     size_t len = strlen(steve);
     if(steve[len-1] == '\n') steve[len-1]= '\0';
 
-    if(strcmp(steve, "exit") == 0){return 0;} //if exit, exit main
+    char * cur;
+    //parse by semicolon (with while loop you don't have to allocate a specific amount of memory)
+    while((cur = strsep(&steve, ";"))){
+      char * block = cur;
 
-    char ** argument_list = parse_args(steve," "); // parses arguments 
+      //parse by pipe
+      while((cur = strsep(&block, "|"))){
+	int stdout = dup(STDOUT_FILENO);
+	int stdin = dup(STDIN_FILENO);	
+      }
+      
+    }
+    
+    char ** argument_list = parse_args(steve," "); // parses arguments
+    if(strcmp(steve, "exit") == 0){return 0;} //if exit, exit main 
     else if(strcmp(argument_list[0],"cd") == 0){
       if(!argument_list[2]) chdir(argument_list[1]);
       else{printf("Condiments spilled: too many arguments given to cd\n");}
@@ -100,9 +99,6 @@ int main(){
       command_handle(argument_list);
     }
 
-    //waits for child to terminate
-    int status;
-    wait(&status);
   }
   
   return 0;
