@@ -77,15 +77,29 @@ int main(){
     //parse by semicolon (with while loop you don't have to allocate a specific amount of memory)
     while((cur = strsep(&steve, ";"))){
       char * block = cur;
+      printf("block, parsed by semicolon: %s\n",block);
 
       //parse by pipe
       while((cur = strsep(&block, "|"))){
-	int stdout = dup(STDOUT_FILENO);
-	int stdin = dup(STDIN_FILENO);	
+	printf("cur, parsed by pipe: %s\n",cur);
+	//int stdout = dup(STDOUT_FILENO);
+	//int stdin = dup(STDIN_FILENO);
+
+	printf("what's at steve rn %s\n",steve);
+	//steve is null when the loop is in the cycle before finishes, therefore you get a segfault
+	if(strcmp(steve, "exit") == 0){return 0;} //if exit, exit main
+	
+	else if(strcmp(steve,"cd") == 0){
+	  char ** argument_list = parse_args(cur, " "); //parses arguments
+	  if(!argument_list[2]) chdir(argument_list[1]);
+	  else{printf("Condiments spilled: too many arguments given to cd\n");}
+	  if(!argument_list[1]) printf("Please give cd an argument, or your order will not arrive!\n");
+	} //if chdir, change directory
       }
       
     }
-    
+
+    /*
     char ** argument_list = parse_args(steve," "); // parses arguments
     if(strcmp(steve, "exit") == 0){return 0;} //if exit, exit main 
     else if(strcmp(argument_list[0],"cd") == 0){
@@ -93,11 +107,13 @@ int main(){
       else{printf("Condiments spilled: too many arguments given to cd\n");}
       if(!argument_list[1]) printf("Please give cd an argument, or your order will not arrive!\n");
     } //if chdir, change directory
-
+   
+    
     //child process spawning
     else if(len > 1){
       command_handle(argument_list);
     }
+    */
 
   }
   
