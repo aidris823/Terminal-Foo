@@ -79,23 +79,30 @@ int main(){
       char * block = cur;
       printf("block, parsed by semicolon: %s\n",block);
 
+      /*
       //parse by pipe
       while((cur = strsep(&block, "|"))){
 	printf("cur, parsed by pipe: %s\n",cur);
 	//int stdout = dup(STDOUT_FILENO);
 	//int stdin = dup(STDIN_FILENO);
+	*/
 
 	printf("what's at steve rn %s\n",steve);
 	//steve is null when the loop is in the cycle before finishes, therefore you get a segfault
-	if(strcmp(steve, "exit") == 0){return 0;} //if exit, exit main
-	
-	else if(strcmp(steve,"cd") == 0){
+	if(strcmp(cur, "exit") == 0){return 0;} //if exit, exit main
+	else if(strsep(&cur," ") == "cd"){
+	  //else if(strcmp(cur,"cd") == 0){
 	  char ** argument_list = parse_args(cur, " "); //parses arguments
+	  printf("argument_list in cd case: %s\n", *argument_list);
 	  if(!argument_list[2]) chdir(argument_list[1]);
 	  else{printf("Condiments spilled: too many arguments given to cd\n");}
 	  if(!argument_list[1]) printf("Please give cd an argument, or your order will not arrive!\n");
 	} //if chdir, change directory
-      }
+
+	else if(len > 1){
+	  char ** args_list = parse_args(cur, " ");
+	  command_handle(args_list);
+	}
       
     }
 
