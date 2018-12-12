@@ -13,7 +13,7 @@ Creating a basic shell in C for our high school systems level programming class.
  - [x] implement cd
  - [x] implement exit
  - [ ] be able to take more than five arguments
- - [ ] read and parse multiple commands on one line with semicolon
+ - [x] read and parse multiple commands on one line with semicolon
  - [ ] simple redirection using > (stdout) and < (stdin)
  - [ ] simple pipes using popen()
 
@@ -75,3 +75,7 @@ Creating a basic shell in C for our high school systems level programming class.
  * cd does not print the error now
  * the command prompt prints if you just hit enter
  * put better cd error handling messages
+
+### 12-12-18 Meredith
+ * I promise I'm fixing this darn thing today, darn it
+ * semicolon parsing works fo real now

@@ -90,19 +90,17 @@ int main(){
 	printf("what's at steve rn %s\n",steve);
 	//steve is null when the loop is in the cycle before finishes, therefore you get a segfault
 	if(strcmp(cur, "exit") == 0){return 0;} //if exit, exit main
-	else if(strsep(&cur," ") == "cd"){
+	else{
 	  //else if(strcmp(cur,"cd") == 0){
 	  char ** argument_list = parse_args(cur, " "); //parses arguments
-	  printf("argument_list in cd case: %s\n", *argument_list);
-	  if(!argument_list[2]) chdir(argument_list[1]);
-	  else{printf("Condiments spilled: too many arguments given to cd\n");}
-	  if(!argument_list[1]) printf("Please give cd an argument, or your order will not arrive!\n");
+	  if(strcmp(argument_list[0],"cd")== 0){
+	      printf("argument_list in cd case: %s\n", *argument_list);
+	      if(!argument_list[2]) chdir(argument_list[1]);
+	      else{printf("Condiments spilled: too many arguments given to cd\n");}
+	      if(!argument_list[1]) printf("Please give cd an argument, or your order will not arrive!\n");
+	  }else{command_handle(argument_list);}
 	} //if chdir, change directory
 
-	else if(len > 1){
-	  char ** args_list = parse_args(cur, " ");
-	  command_handle(args_list);
-	}
       
     }
 
