@@ -76,6 +76,7 @@ Creating a basic shell in C for our high school systems level programming class.
  * the command prompt prints if you just hit enter
  * put better cd error handling messages
 
-### 12-12-18 Meredith
+### 12-12-18 Meredith and Anand
  * I promise I'm fixing this darn thing today, darn it
  * semicolon parsing works fo real now
+ * put stuff in another function

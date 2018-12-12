@@ -42,13 +42,21 @@ char ** parse_args(char * line, char * parse){
 
 //Handles the command.
 int command_handle(char ** argument_list){
-  if (!fork()){
-    if (execvp(argument_list[0],argument_list)<0){
-      printf("ERROR MESSAGE: Zoo Wee Mama!  Invalid command!\n");
-    }
-    exit(1);
-  }
 
+  if(strcmp(argument_list[0],"cd")== 0){
+    printf("argument_list in cd case: %s\n", *argument_list);
+    if(!argument_list[2]) chdir(argument_list[1]);
+    else{printf("Condiments spilled: too many arguments given to cd\n");}
+    if(!argument_list[1]) printf("Please give cd an argument, or your order will not arrive!\n");
+  }else{
+    if (!fork()){
+      if (execvp(argument_list[0],argument_list)<0){
+	printf("ERROR MESSAGE: Zoo Wee Mama!  Invalid command!\n");
+      }
+      exit(1);
+    }
+  } //if chdir, change directory. else, execute command
+      
   //wait for child to terminate
   int status;
   wait(&status);
@@ -89,37 +97,10 @@ int main(){
 
 	printf("what's at steve rn %s\n",steve);
 	//steve is null when the loop is in the cycle before finishes, therefore you get a segfault
-	if(strcmp(cur, "exit") == 0){return 0;} //if exit, exit main
-	else{
-	  //else if(strcmp(cur,"cd") == 0){
-	  char ** argument_list = parse_args(cur, " "); //parses arguments
-	  if(strcmp(argument_list[0],"cd")== 0){
-	      printf("argument_list in cd case: %s\n", *argument_list);
-	      if(!argument_list[2]) chdir(argument_list[1]);
-	      else{printf("Condiments spilled: too many arguments given to cd\n");}
-	      if(!argument_list[1]) printf("Please give cd an argument, or your order will not arrive!\n");
-	  }else{command_handle(argument_list);}
-	} //if chdir, change directory
-
-      
+	char ** argument_list = parse_args(cur, " ");
+	if(strcmp(argument_list[0], "exit") == 0){return 0;} //if exit, exit main
+	else{command_handle(argument_list);}
     }
-
-    /*
-    char ** argument_list = parse_args(steve," "); // parses arguments
-    if(strcmp(steve, "exit") == 0){return 0;} //if exit, exit main 
-    else if(strcmp(argument_list[0],"cd") == 0){
-      if(!argument_list[2]) chdir(argument_list[1]);
-      else{printf("Condiments spilled: too many arguments given to cd\n");}
-      if(!argument_list[1]) printf("Please give cd an argument, or your order will not arrive!\n");
-    } //if chdir, change directory
-   
-    
-    //child process spawning
-    else if(len > 1){
-      command_handle(argument_list);
-    }
-    */
-
   }
   
   return 0;
