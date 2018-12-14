@@ -6,26 +6,14 @@
 #include <errno.h>
 #include <sys/wait.h>
 
-/* 
-
+/*
 //Simple redirection
 void redirect(){
   return;
 }
 //...CLASS NOTES DONT MENTION HOW TO REDIRECT STDOUT AND STDIN!?  (I think?)
 //Keep calm and carry on.
-/*
-void pipe_redirect(){
-  int c = fork();
-  int fd[2];
-  if (c == 0){
-    dup2(fd[1],1);
-  }
-  dup2(fd[0],0);
-  execvp(parsed[2],2);
-}
-*/
-	
+*/	
 	
 //Parses arguments.
 char ** parse_args(char * line, char * parse){
@@ -87,13 +75,19 @@ int main(){
       char * block = cur;
       printf("block, parsed by semicolon: %s\n",block);
 
-      /*
       //parse by pipe
+      char ** unepipe = (char **)calloc(2,sizeof(char*));
       while((cur = strsep(&block, "|"))){
+	strcpy(*unepipe, cur);
+	printf("what's in two ends of pipe: %s\n",*unepipe);
+	unepipe++;
 	printf("cur, parsed by pipe: %s\n",cur);
-	//int stdout = dup(STDOUT_FILENO);
-	//int stdin = dup(STDIN_FILENO);
-	*/
+	int stdout = dup(STDOUT_FILENO);
+	int stdin = dup(STDIN_FILENO);
+	int des[2];
+	des[0] = stdout;
+	des[1] = stdin;
+      }
 
 	printf("what's at steve rn %s\n",steve);
 	//steve is null when the loop is in the cycle before finishes, therefore you get a segfault
