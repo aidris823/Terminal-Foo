@@ -73,8 +73,9 @@ int main(){
     //parse by semicolon (with while loop you don't have to allocate a specific amount of memory)
     while((cur = strsep(&steve, ";"))){
       char * block = cur;
-      printf("block, parsed by semicolon: %s\n",block);
+      //printf("block, parsed by semicolon: %s\n",block);
 
+      /*
       //parse by pipe
       char ** unepipe = (char **)calloc(2,sizeof(char*));
       while((cur = strsep(&block, "|"))){
@@ -88,8 +89,9 @@ int main(){
 	des[0] = stdout;
 	des[1] = stdin;
       }
+      */
 
-	printf("what's at steve rn %s\n",steve);
+      //printf("what's at steve rn %s\n",steve);
 	//steve is null when the loop is in the cycle before finishes, therefore you get a segfault
 	char ** argument_list = parse_args(cur, " ");
 	if(strcmp(argument_list[0], "exit") == 0){return 0;} //if exit, exit main

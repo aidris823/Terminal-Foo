@@ -8,21 +8,42 @@ Creating a basic shell in C for our high school systems level programming class.
 
 ## Features
  - [x] print a command prompt
- - [x] parse arguments from the command line
+ - [x] prints the current working directory
+ - [x] parse arguments from the command line and executes them
  - [x] have a nonvalid command error message
- - [x] implement cd
+ - [x] implement cd with error messages
  - [x] implement exit
- - [ ] be able to take more than five arguments
  - [x] read and parse multiple commands on one line with semicolon
- - [ ] simple redirection using > (stdout) and < (stdin)
- - [ ] simple pipes using popen()
+
+## Attempted Features
+ - [ ] simple redirection using > (Stdout) and < (stdin)
+ - [ ] simple pipes using popen() or pipe()
+ - [ ] stripping whitespace from semicolon-separated commands
 
 ## Wishes
- - [ ] funnier error messages
+ - [ ] catching CTRL+C
  - [ ] colors
  - [ ] tab completion
  - [ ] up key for previous commands
- - [ ] slightly less crustier readme
+ - [ ] be able to take more than 5 arguments
+
+## Bugs
+ * don't enter a command wite whitespace before and after, like 'echo hello ; ls' just do echo hello;ls
+ * don't put more than 5 commands in
+
+## Function Headers and Descriptions
+``` C
+char ** parse_args(char * line, char * parse);
+//parses line by whatever is specified in parse
+
+int command_handle(char ** argument_list);
+//handles an array of space-separated arguments with cd or execvp and waits for forked child process to finish before returning
+
+void printdir();
+//prints out the command prompt which is the current working directory and unique burgershop feature order up
+
+//main handles semicolon parsing and exit
+```
 
 ## Devlog
 
